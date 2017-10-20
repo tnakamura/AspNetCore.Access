@@ -11,10 +11,11 @@
     <FileVersion>0.0.1.0</FileVersion>
     <NeutralLanguage>en-US</NeutralLanguage>
     <Description>ASP.NET Core Middleware for limiting access based on IP address</Description>
-    <PackageTags>aspnetcore middleweare</PackageTags>
+    <PackageTags>aspnetcore</PackageTags>
     <RepositoryType>git</RepositoryType>
     <PackageProjectUrl>https://github.com/tnakamura/AspNetCore.Contrib.Access</PackageProjectUrl>
     <RepositoryUrl>https://github.com/tnakamura/AspNetCore.Contrib.Access.git</RepositoryUrl>
+    <PackageLicenseUrl>https://raw.githubusercontent.com/tnakamura/AspNetCore.Contrib.Access/master/LICENSE</PackageLicenseUrl>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
