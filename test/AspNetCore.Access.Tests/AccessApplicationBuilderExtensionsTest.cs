@@ -11,7 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Moq;
 using Xunit;
 
-namespace AspNetCore.Contrib.Access.Tests
+namespace AspNetCore.Access.Tests
 {
     public class AccessApplicationBuilderExtensionsTest
     {

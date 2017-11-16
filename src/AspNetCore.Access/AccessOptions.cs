@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System.Linq;
 
-namespace AspNetCore.Contrib.Access
+namespace AspNetCore.Access
 {
     public class AccessOptions
     {

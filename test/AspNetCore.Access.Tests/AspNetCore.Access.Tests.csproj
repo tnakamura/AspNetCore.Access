@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\AspNetCore.Contrib.Access\AspNetCore.Contrib.Access.csproj" />
+    <ProjectReference Include="..\..\src\AspNetCore.Access\AspNetCore.Access.csproj" />
   </ItemGroup>
 
 </Project>

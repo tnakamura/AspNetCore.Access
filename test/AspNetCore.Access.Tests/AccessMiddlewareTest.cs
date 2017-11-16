@@ -5,7 +5,7 @@ using Xunit;
 using System.Net;
 using Microsoft.AspNetCore.Http;
 
-namespace AspNetCore.Contrib.Access.Tests
+namespace AspNetCore.Access.Tests
 {
     public class AccessMiddlewareTest
     {

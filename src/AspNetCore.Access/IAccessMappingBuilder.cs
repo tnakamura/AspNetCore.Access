@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 
-namespace AspNetCore.Contrib.Access
+namespace AspNetCore.Access
 {
     /// <summary>
     /// Defines a contract for an access mapping builder in an application.

@@ -1,5 +1,5 @@
 ﻿using System;
-using AspNetCore.Contrib.Access;
+using AspNetCore.Access;
 
 namespace Microsoft.AspNetCore.Builder
 {

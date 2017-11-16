@@ -4,7 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 
-namespace AspNetCore.Contrib.Access
+namespace AspNetCore.Access
 {
     /// <summary>
     /// Represents a middleware for limiting access based on IP address
