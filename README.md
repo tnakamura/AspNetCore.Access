@@ -1,4 +1,4 @@
-# AspNetCore.Contrib.Access
+# AspNetCore.Access
 
 ASP.NET Core Middleware for limiting access based on IP address.
 
