@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System.Linq;
+using System.Net;
 
 namespace AspNetCore.Access
 {
@@ -14,7 +15,7 @@ namespace AspNetCore.Access
         /// <param name="mappings">
         /// The mappings configured in the <see cref="IAccessMappingBuilder"/>.
         /// </param>
-        public AccessOptions(ILookup<PathString, string> mappings)
+        public AccessOptions(ILookup<PathString, IPAddress> mappings)
         {
             Mappings = mappings;
         }
@@ -22,6 +23,6 @@ namespace AspNetCore.Access
         /// <summary>
         /// Gets the mappings configured in the <see cref="IAccessMappingBuilder"/>.
         /// </summary>
-        public ILookup<PathString, string> Mappings { get; }
+        public ILookup<PathString, IPAddress> Mappings { get; }
     }
 }

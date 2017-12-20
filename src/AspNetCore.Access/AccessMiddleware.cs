@@ -11,9 +11,9 @@ namespace AspNetCore.Access
     /// </summary>
     public class AccessMiddleware
     {
-        readonly RequestDelegate next;
+        readonly RequestDelegate _next;
 
-        readonly AccessOptions options;
+        readonly AccessOptions _options;
 
         /// <summary>
         /// Create a new instance of <see cref="AccessMiddleware"/>
@@ -26,8 +26,8 @@ namespace AspNetCore.Access
         /// </param>
         public AccessMiddleware(RequestDelegate next, AccessOptions options)
         {
-            this.next = next ?? throw new ArgumentNullException(nameof(next));
-            this.options = options ?? throw new ArgumentNullException(nameof(options));
+            _next = next ?? throw new ArgumentNullException(nameof(next));
+            _options = options ?? throw new ArgumentNullException(nameof(options));
         }
 
         /// <summary>
@@ -48,7 +48,7 @@ namespace AspNetCore.Access
 
             if (IsIPAddressAuthorized(context))
             {
-                await next(context);
+                await _next(context);
             }
             else
             {
@@ -63,13 +63,13 @@ namespace AspNetCore.Access
 
         bool IsIPAddressAuthorized(HttpContext context)
         {
-            foreach (var ipAddresses in options.Mappings)
+            foreach (var mapping in _options.Mappings)
             {
-                var segmentPath = ipAddresses.Key;
+                var segmentPath = mapping.Key;
                 if (context.Request.Path.StartsWithSegments(segmentPath))
                 {
-                    var remoteIp = context.Connection.RemoteIpAddress.ToString();
-                    return ipAddresses.Any(ip => ip == remoteIp);
+                    var remoteIp = context.Connection.RemoteIpAddress;
+                    return mapping.Any(ip => ip.Equals(remoteIp));
                 }
                 else
                 {
