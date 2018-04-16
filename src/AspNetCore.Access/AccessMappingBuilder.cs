@@ -13,10 +13,20 @@ namespace AspNetCore.Access
 
         public AccessOptions Build()
         {
-            var lookup = _mappings.SelectMany(kvp =>
-             {
-                 return kvp.Value.Select(v => new KeyValuePair<PathString, IPAddress>(kvp.Key, v));
-             }).ToLookup(kvp => kvp.Key, kvp => kvp.Value);
+            var mappings = _mappings.Count == 0
+                ? new Dictionary<PathString, List<IPAddress>>()
+                {
+                    [new PathString("/")] = new List<IPAddress>()
+                    {
+                        IPAddress.Parse("127.0.0.1")
+                    }
+                }
+                : _mappings;
+
+            var lookup = mappings.SelectMany(kvp =>
+            {
+                return kvp.Value.Select(v => new KeyValuePair<PathString, IPAddress>(kvp.Key, v));
+            }).ToLookup(kvp => kvp.Key, kvp => kvp.Value);
 
             return new AccessOptions(lookup);
         }

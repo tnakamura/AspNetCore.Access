@@ -32,5 +32,21 @@ namespace AspNetCore.Access.Tests
 
             Assert.Equal((int)HttpStatusCode.Forbidden, context.Response.StatusCode);
         }
+
+        [Fact]
+        public async Task Build_add_loopback_address_if_empty()
+        {
+            var app = new ApplicationBuilder(Mock.Of<IServiceProvider>());
+            app.UseAccess(mappings =>
+            {
+            });
+            var appFunc = app.Build();
+
+            var context = new DefaultHttpContext();
+            context.Request.Path = "/";
+            context.Connection.RemoteIpAddress = IPAddress.Parse("192.1.1.1");
+            await appFunc(context);
+            Assert.Equal((int)HttpStatusCode.Forbidden, context.Response.StatusCode);
+        }
     }
 }

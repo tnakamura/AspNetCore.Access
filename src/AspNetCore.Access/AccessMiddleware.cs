@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -46,7 +47,8 @@ namespace AspNetCore.Access
                 throw new ArgumentNullException(nameof(context));
             }
 
-            if (IsIPAddressAuthorized(context))
+            var ipmasks = GetIPMasksForPath(context.Request.Path);
+            if (IsIPAddressAuthorized(context, ipmasks))
             {
                 await _next(context);
             }
@@ -61,22 +63,30 @@ namespace AspNetCore.Access
             context.Response.StatusCode = (int)HttpStatusCode.Forbidden;
         }
 
-        bool IsIPAddressAuthorized(HttpContext context)
+        IEnumerable<IPAddress> GetIPMasksForPath(PathString path)
         {
-            foreach (var mapping in _options.Mappings)
+            return _options.Mappings
+                .Where(m => path.StartsWithSegments(m.Key))
+                .SelectMany(m => m);
+        }
+
+        bool IsIPAddressAuthorized(HttpContext context, IEnumerable<IPAddress> ipmasks)
+        {
+            var isAuthorized = true;
+            var remoteIp = context.Connection.RemoteIpAddress;
+            foreach (var ipmask in ipmasks)
             {
-                var segmentPath = mapping.Key;
-                if (context.Request.Path.StartsWithSegments(segmentPath))
+                if (ipmask.Equals(remoteIp))
                 {
-                    var remoteIp = context.Connection.RemoteIpAddress;
-                    return mapping.Any(ip => ip.Equals(remoteIp));
+                    isAuthorized = true;
+                    break;
                 }
                 else
                 {
-                    return true;
+                    isAuthorized = false;
                 }
             }
-            return true;
+            return isAuthorized;
         }
     }
 }
